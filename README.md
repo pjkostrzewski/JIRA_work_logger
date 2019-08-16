@@ -1,1 +1,6 @@
-# jira-work-log-with-gui
+# Documentation
+jira work log tool with GUI
+
+
+## Application view
+![Application](jira.png)
