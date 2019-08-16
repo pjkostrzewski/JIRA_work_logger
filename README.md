@@ -14,7 +14,7 @@ Project is created with:
 pip3 install -r requirements.cfg
 ```
 ## Setup
-Place 'login'.txt file (your NOKIA login as a filename) next to execution file, for example:
+Place 'login'.txt file next to execution file, for example:
 ```
 login.txt
 ```
