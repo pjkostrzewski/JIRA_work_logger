@@ -41,9 +41,9 @@ def info():
                             "for example: \n- FCA_5GIV-421 My feature\n"
                             "3. Use next line for another one\n"
                             "for example: \n"
-                            "- FCA_5GIV-421 My first\n"
-                            "- FCA_5GIV-405 My second\n"
-                            "- FCA_5GIV-463 My third",
+                            "- issue1 My first\n"
+                            "- issue2 My second\n"
+                            "- issue3 My third",
                        align="left"
                        )
 
@@ -69,7 +69,6 @@ if __name__ == '__main__':
     ok.text_color = "white"
     how_to = PushButton(app, text="How to?", command=info, grid=[1, 10], align="left")
     how_to.bg = "#E7E7E9"
-    info = Text(app, text="I&V Transport-Security Wroclaw, 2019\n\t\t\tversion 1.0", grid=[1, 11], align="right")
     info.text_size = 6
     info.text_color = "grey"
     app.display()
