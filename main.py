@@ -1,21 +1,30 @@
-from jira import JIRA
-from guizero import App, PushButton, Picture, TextBox, Slider, Window, Text, Combo
+import os
 import tkinter
 import tkcalendar
-import os
+from jira import JIRA
+from guizero import (App, PushButton, Picture, TextBox, 
+                     Slider, Window, Text, Combo)
 
-address = "your address of jira"
-
+from helpers import info_text_message, address
 
 def send():
+    """
+    TODO: add funtion args instead of slider.value, login, password etc.
+    TODO: one object one responsibility
+    """
     hours = "{}h".format(slider.value)
     login = input_login.value
     password = input_password.get()
+    credentials = tuple(login, password)
     issue = issues.value.split()[0]
     commentary = comment.value
     date = calendar.selection_get()
-    jira = JIRA(address, basic_auth=(login, password))
-    jira.add_worklog(issue=issue, timeSpent=hours, comment=commentary, started=date)
+    jira = JIRA(server=address, 
+                basic_auth=credentials)
+    jira.add_worklog(issue=issue, 
+                     timeSpent=hours, 
+                     comment=commentary, 
+                     started=date)
     summary = Text(app, text="{} sent to {}, date: {}".format(hours, issue, date), grid=[0, 12])
     summary.text_size = 8
     summary.text_color = "#034DA4"
@@ -35,18 +44,9 @@ def get_login_from_filename():
 def info():
     window = Window(app, width=250, height=180, title="how to use")
     instruction = Text(window,
-                       text="1. Place text file next to .exe file with your login\n "
-                            "for example:\n- tnowak.txt\n"
-                            "2. In .txt file place issue<space>your_comment\n"
-                            "for example: \n- FCA_5GIV-421 My feature\n"
-                            "3. Use next line for another one\n"
-                            "for example: \n"
-                            "- issue1 My first\n"
-                            "- issue2 My second\n"
-                            "- issue3 My third",
+                       text=info_text_message,
                        align="left"
                        )
-
     instruction.text_size = 8
 
 
