@@ -4,8 +4,9 @@ from utilities import get_login_from_filename
 
 class JiraConnector(object):
     
-    def __init__(self, address):
-        self.address = address
+    address = "your jira adress here"
+    
+    def __init__(self):
         self.login = get_login_from_filename()
         self.connection = None
         
