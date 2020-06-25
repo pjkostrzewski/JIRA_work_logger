@@ -41,7 +41,6 @@ class Application(object):
                         align="right")
         self.how_to = PushButton(self.app, text="How to?", command=self._generate_info, grid=[1, 10], align="left")
         self.configure()
-        self.display()
     
     def configure(self):
         self.app.text_color = "black"
