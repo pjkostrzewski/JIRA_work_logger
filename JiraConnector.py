@@ -11,7 +11,7 @@ class JiraConnector(object):
         
     def connect(self, password):
         """
-        creates connection to JIRA server with credentials
+        create connection to JIRA server with credentials
         Args:
             password (str): password to JIRA account
         """
@@ -21,7 +21,7 @@ class JiraConnector(object):
         
     def add_worklog(self, issue, hours, date, commentary):
         """
-        adds worklog to specified issue with hours, date and commentary arguments
+        add worklog to specified issue with hours, date and commentary arguments
         Args:
             jira_connection (JIRA): JIRA interface object
             issue (str): issue code
@@ -37,7 +37,7 @@ class JiraConnector(object):
 
     def send(self, password, hours, issue, date, commentary=""):
         """
-        sends worklog data to JIRA server
+        send worklog data to JIRA server
             - connect to server if not connected
             - add worklog
         Args:

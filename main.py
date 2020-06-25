@@ -2,23 +2,12 @@ import os
 import tkinter
 import tkcalendar
 from guizero import (App, PushButton, Picture, TextBox, 
-                     Slider, Window, Text, Combo)
+                     Slider, Combo)
 
 from utilities import (info_text_message, get_login_from_filename, 
                        get_issues_from_file)
+from addition_generators import generate_info
 
-def summary(app, hours, issue, date):
-    summary = Text(app, text="{} sent to {}, date: {}".format(hours, issue, date), grid=[0, 12])
-    summary.text_size = 8
-    summary.text_color = "#034DA4"
-    
-def info():
-    window = Window(app, width=250, height=180, title="how to use")
-    instruction = Text(window,
-                       text=info_text_message,
-                       align="left"
-                       )
-    instruction.text_size = 8
 
 if __name__ == '__main__':
     issues = get_issues_from_file()
@@ -44,10 +33,10 @@ if __name__ == '__main__':
                     align="right")
     ok.bg = "#034DA4"
     ok.text_color = "white"
-    how_to = PushButton(app, text="How to?", command=info, grid=[1, 10], align="left")
+    how_to = PushButton(app, text="How to?", command=generate_info, grid=[1, 10], align="left")
     how_to.bg = "#E7E7E9"
-    info.text_size = 6
-    info.text_color = "grey"
+    generate_info.text_size = 6
+    generate_info.text_color = "grey"
     app.display()
 
 
