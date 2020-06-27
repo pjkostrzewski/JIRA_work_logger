@@ -6,14 +6,23 @@ from utilities import (info_text_message, get_login_from_filename,
                        get_issues_from_file)
 from JiraConnector import JiraConnector
 
-WIDTH = 460
-HEIGHT = 400
+
 
 class Application(object):
-
+    """
+    class with interface objects, views and buttons configured
+    """
+    
+    WIDTH = 460
+    HEIGHT = 400
+    
     def __init__(self):
+        """
+        - create all necessary elements
+        - configure them with self.configure() method
+        """
         self.app = App(title="JIRA log work", 
-                       width=WIDTH, height=HEIGHT, 
+                       width=Application.WIDTH, height=Application.HEIGHT, 
                        bg="white", layout="grid")
         self.jira = JiraConnector()
         self.username = get_login_from_filename()
@@ -31,18 +40,14 @@ class Application(object):
                         width=30, height=4, 
                         grid=[0, 10], 
                         multiline=True)
-        self.ok = PushButton(self.app, 
-                        text="SEND", 
-                        command=self.jira.send, 
-                        args=(self.input_login.value, self.input_password.get(), 
-                            "{}h".format(self.slider.value), self.issues.value.split()[0],
-                            self.calendar.selection_get(), self.comment.value), 
-                        grid=[1, 10], 
-                        align="right")
+        self.ok = self._create_send_button()
         self.how_to = PushButton(self.app, text="How to?", command=self._generate_info, grid=[1, 10], align="left")
         self.configure()
     
     def configure(self):
+        """
+        configure all the objects created in __init__()
+        """
         self.app.text_color = "black"
         self.app.add_tk_widget(self.input_password, grid=[1, 2])
         self.app.add_tk_widget(self.calendar, grid=[0, 1, 1, 8])
@@ -54,17 +59,45 @@ class Application(object):
         self.how_to.text_color = "grey"
         
     def display(self):
+        """
+        display everything after creation and configuration
+        """
         self.app.display()
         
     def _generate_summary(self, hours, issue, date):
+        """
+        to generate summary after work logging
+        Args:
+            hours (str): how many hours logged
+            issue (str): which issue logged
+            date (str): date logged
+        """
         summary = Text(self.app, text="{} sent to {}, date: {}".format(hours, issue, date), grid=[0, 12])
         summary.text_size = 8
         summary.text_color = "#034DA4"
         
     def _generate_info(self):
+        """
+        generate info view after push "how to?" button
+        """
         window = Window(self.app, width=250, height=180, title="how to use")
         instruction = Text(window,
                         text=info_text_message,
                         align="left"
                         )
         instruction.text_size = 8
+    
+    def _create_send_button(self):
+        """
+        create send button in interface
+        Returns:
+            [type]: PushButton object
+        """
+        return PushButton(self.app, 
+                          text="SEND", 
+                          command=self.jira.send, 
+                          args=(self.input_login.value, self.input_password.get(), 
+                              "{}h".format(self.slider.value), self.issues.value.split()[0],
+                              self.calendar.selection_get(), self.comment.value), 
+                          grid=[1, 10], 
+                          align="right")
