@@ -1,5 +1,9 @@
 ## General info
-JIRA worklog tool
+JIRA worklog tool - Run this to log your hours in JIRA more effectively. 
+Set the program to run on work days at a specific time on your operating system and enjoy power of simplicity 
+
+## Application view
+![Application](jira.png)
 
 ## Technologies
 Project is created with:
@@ -30,5 +34,4 @@ Then run script using python3
 ```
 python3 main.py
 ```
-## Application view
-![Application](jira.png)
+
