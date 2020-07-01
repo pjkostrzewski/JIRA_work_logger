@@ -1,11 +1,10 @@
 import tkinter
 import tkcalendar
-from guizero import (App, PushButton, Picture, TextBox, 
+from guizero import (App, PushButton, TextBox,
                      Slider, Combo, Text, Window)
-from utilities import (info_text_message, get_login_from_filename, 
+from helpers import (info_text_message, get_login_from_filename,
                        get_issues_from_file)
 from JiraConnector import JiraConnector
-
 
 
 class Application(object):
@@ -63,7 +62,19 @@ class Application(object):
         display everything after creation and configuration
         """
         self.app.display()
-        
+
+    def send(self):
+        """
+        get all data from class instance, send and generate summary
+        """
+        password = self.input_password.get()
+        hours = "{}h".format(self.slider.value)
+        issue = self.issues.value.split()[0]
+        date = self.calendar.selection_get()
+        commentary = self.comment.value
+        self.jira.send(password, hours, issue, date, commentary)
+        self._generate_summary(hours, issue, date)
+
     def _generate_summary(self, hours, issue, date):
         """
         to generate summary after work logging
@@ -82,22 +93,19 @@ class Application(object):
         """
         window = Window(self.app, width=250, height=180, title="how to use")
         instruction = Text(window,
-                        text=info_text_message,
-                        align="left"
-                        )
+                           text=info_text_message,
+                           align="left"
+                           )
         instruction.text_size = 8
     
     def _create_send_button(self):
         """
-        create send button in interface
+        create send buttoJiraConnectorn in interface
         Returns:
             [type]: PushButton object
         """
         return PushButton(self.app, 
-                          text="SEND", 
-                          command=self.jira.send, 
-                          args=(self.input_login.value, self.input_password.get(), 
-                              "{}h".format(self.slider.value), self.issues.value.split()[0],
-                              self.calendar.selection_get(), self.comment.value), 
+                          text="SEND",
+                          command=self.send,
                           grid=[1, 10], 
                           align="right")

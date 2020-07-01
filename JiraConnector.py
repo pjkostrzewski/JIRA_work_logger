@@ -1,5 +1,5 @@
 from jira import JIRA
-from utilities import get_login_from_filename
+from helpers import get_login_from_filename
 
 
 class JiraConnector(object):
@@ -16,8 +16,8 @@ class JiraConnector(object):
         Args:
             password (str): password to JIRA account
         """
-        credentials = tuple(self.login, password)
-        self.connection = JIRA(server=self.address, 
+        credentials = (self.login, password)
+        self.connection = JIRA(server=self.address,
                                basic_auth=credentials)
         
     def add_worklog(self, issue, hours, date, commentary):
@@ -31,10 +31,11 @@ class JiraConnector(object):
             commentary (str): commentary to log
         """
         assert self.connection, "not connected"
-        self.connection.add_worklog(issue=issue, 
+        self.connection.add_worklog(issue=issue,
                                     timeSpent=hours, 
-                                    comment=commentary, 
+                                    comment=commentary,
                                     started=date)
+        print("worklog sent.")
 
     def send(self, password, hours, issue, date, commentary=""):
         """
@@ -48,6 +49,8 @@ class JiraConnector(object):
             date (datetime): specified day to log
             commentary (str, optional): comment to log. Defaults to "".
         """
+
+        print(password, hours, issue, date, commentary)
         if not self.connection:
             self.connect(password=password)
         self.add_worklog(issue, hours, date, commentary)
