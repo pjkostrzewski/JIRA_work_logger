@@ -17,6 +17,12 @@ Project is created with:
 ```
 pip3 install -r requirements.cfg
 ```
+
+## how to create .exe file?
+```
+pyinstaller main.py --onefile --hidden-import=babel.numbers
+```
+
 ## Setup
 Place 'login'.txt file next to execution file, for example:
 ```
