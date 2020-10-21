@@ -50,7 +50,7 @@ class JiraConnector(object):
             commentary (str, optional): comment to log. Defaults to "".
         """
 
-        print(password, hours, issue, date, commentary)
+        print("to send:", hours, issue, date, commentary)
         if not self.connection:
             self.connect(password=password)
         self.add_worklog(issue, hours, date, commentary)
